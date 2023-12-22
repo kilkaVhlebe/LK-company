@@ -1,0 +1,1 @@
+create database LK_company;
