@@ -1,4 +1,4 @@
-create database LK_company;
+create database lk_company;
 
 CREATE TABLE users
 (
@@ -7,3 +7,5 @@ CREATE TABLE users
     password  VARCHAR(100) NOT NULL,
     avatar TEXT
 );
+
+INSERT INTO users (login, password, avatar) VALUES ('first_user', 1234, '0'); /* Написать скрипт для создания пользователей
