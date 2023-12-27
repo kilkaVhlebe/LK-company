@@ -20,7 +20,9 @@ CREATE TABLE договоры
     расчетчик_ФИО       TEXT,
     расчетчик_телефона  INTEGER,
     договорник_ФИО      TEXT,
-    договорник_телефон  INTEGER
+    договорник_телефон  INTEGER,
+    users_id INTEGER,
+    FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
 INSERT INTO договоры (номер,тема,дата_начала,дата_окончания,расчетчик_ФИО,расчетчик_телефона,договорник_ФИО_1,договорник_ФИО_2)
@@ -30,7 +32,7 @@ VALUES (34643346, 'это тема договора', '2023-12-24','2024-3-24','
 /*Карточка организации*/
 CREATE TABLE общая_информация
 (
-id SERIAL PRIMARY KEY,
+id INTEGER UNIQUE REFERENCES users(id),
 краткое название    TEXT,
 полное название     TEXT,
 юридичемкий_адрес   VARCHAR(256),
@@ -39,7 +41,7 @@ id SERIAL PRIMARY KEY,
 
 CREATE TABLE реквизиты_компании
 (
-id SERIAL PRIMARY KEY,
+id INTEGER UNIQUE REFERENCES общая_информация(id),
 инн                 INTEGER,
 кпп                 INTEGER,
 огрн                INTEGER,
@@ -47,36 +49,30 @@ id SERIAL PRIMARY KEY,
 оконх               INTEGER,
 оквэд               INTEGER,
 ндс                 INTEGER,
-вид_деятельности    VARCHAR(256),
-id_организации      INTEGER NOT NULL,
-FOREIGN (id_организации) REFERENCES общая_информация (id)
+вид_деятельности    VARCHAR(256)
 );
 
 CREATE TABLE расчетный_счет
 (
-id SERIAL PRIMARY KEY,
+id INTEGER UNIQUE REFERENCES общая_информация(id),
 расчетный_счет      INTEGER,
 бик                 INTEGER,
-Банк                VARCHAR(255),
-id_организации      INTEGER NOT NULL,
-FOREIGN (id_организации) REFERENCES общая_информация (id)
+Банк                VARCHAR(255)
 );
 
 CREATE TABLE контакты
 (
-id SERIAL PRIMARY KEY,
+id INTEGER UNIQUE REFERENCES общая_информация(id),
 режим_работы        VARCHAR(5),
 телефон             INTEGER,
 факс                VARCHAR(50),
 email               VARCHAR(256),
-сайт                VARCHAR(2048),
-id_организации      INTEGER NOT NULL,
-FOREIGN (id_организации) REFERENCES общая_информация (id)
+сайт                VARCHAR(2048)
 );
 
 CREATE TABLE представитель_организации
 (
-id                  SERIAL PRIMARY KEY,
+id INTEGER UNIQUE REFERENCES общая_информация(id),
 ФИО                 TEXT,
 должность           VARCHAR(256),
 юридичемкий_адрес   VARCHAR(256),
@@ -84,7 +80,5 @@ id                  SERIAL PRIMARY KEY,
 телефон             INTEGER,
 email               VARCHAR(256),
 примечание          TEXT,
-доп_информация      TEXT,
-id_организации      INTEGER NOT NULL,
-FOREIGN (id_организации) REFERENCES общая_информация (id)
+доп_информация      TEXT
 );
