@@ -9,11 +9,11 @@ class UserController {
             if(UserCheck.rows.length === 1) {
                 res.status(200).json(UserCheck.rows)
             } else {
-                res.status(404).json({message: "User not found!"})
+                res.status(404).json({message: "User not found or invalid arguments!"})
             }
         }catch (error){
             res.status(500).json({message:"Internal server error!"})
-            console.log("login error: " + error)
+            console.error("login error: " + error)
         }
     }
 
@@ -21,13 +21,13 @@ class UserController {
         try{
             const {id, login, password} = req.body
             if (!await UserChecker(id, login, password)) {
-                res.status(404).json({message: "User not found!"})
+                res.status(404).json({message: "User not found or invalid arguments!"})
                 return;
             }
             res.status(200).json({message: "User is successful"})
         }catch (error){
             res.status(500).json({message:"Internal server error!"})
-            console.log("logout error: " + error)
+            console.error("logout error: " + error)
         }
     }
 }
