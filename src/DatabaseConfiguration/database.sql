@@ -107,7 +107,7 @@ VALUES (34643346, 'это тема договора', '2023-12-24','2024-3-24','
 
 CREATE TABLE карточка_договора
 (
-    номер_договора      INTEGER,
+    номер_договора      INTEGER not null unique references договоры(id),
     Грузополучатель     VARCHAR(256),
     Адрес               VARCHAR(256),
     Отрасль             VARCHAR(256),
@@ -119,6 +119,35 @@ CREATE TABLE карточка_договора
     Окончание_договора  DATE,
     Дата_подписания     DATE,
     Дата_расторжения    DATE,
-    users_id INTEGER,
-    FOREIGN KEY (users_id) REFERENCES users(id)
 );
+
+/*Карточка договора/ точки учета*/
+CREATE TABLE точки_учета
+(
+    id INTEGER SERIAL PRIMARY KEY,
+    номер_договора INTEGER,
+    наименование VARCHAR(255),
+    адрес VARCHAR(255),
+    тип VARCHAR(255),
+    заводской_номер_ПУ INTEGER,
+    число_тарифов INTEGER,
+    коэффициент_трансформации NUMERIC(3),
+    действует_с DATE,
+    действует_до DATE,
+    ценовая_категория VARCHAR(255)
+    FOREIGN KEY (номер_договора) REFERENCES договоры(id)
+);
+
+CREATE TABLE параметры_ТУ
+(
+ id INTEGER SERIAL PRIMARY KEY,
+ id_точки_учета INTEGER,
+ наименование VARCHAR(255),
+ значение VARCHAR(255),
+ действует_с DATE,
+ действует_до DATE,
+ FOREIGN KEY (id_точки_учета) REFERENCES точки_учета(id)
+);
+
+/*Вывод показаний*/
+CREATE TABLE ();
