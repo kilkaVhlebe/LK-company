@@ -17,19 +17,6 @@ class UserController {
         }
     }
 
-    async logout(req, res) {
-        try{
-            const {id, login, password} = req.body
-            if (!await UserChecker(id, login, password)) {
-                res.status(404).json({message: "User not found or invalid arguments!"})
-                return;
-            }
-            res.status(200).json({message: "User is successful"})
-        }catch (error){
-            res.status(500).json({message:"Internal server error!"})
-            console.error("logout error: " + error)
-        }
-    }
 }
 
 module.exports = new UserController()
