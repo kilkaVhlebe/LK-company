@@ -1,7 +1,7 @@
 const express = require('express')
+const dotenv = require('dotenv/config')
 
-
-const Port = process.env.PORT || 4200
+const PORT = process.env.PORT || 4200
 const app = express()
 
 
@@ -13,6 +13,6 @@ const contractRouter = require('./routes/договоры.routes')
 app.use('/', contractRouter)
 const meteringPointsRouter = require('./routes/точки_учета.routes')
 app.use('/', meteringPointsRouter)
-app.listen(Port, () =>{
-    console.log("Server started on address http://localhost:4200")
+app.listen(PORT, () =>{
+    console.log(`Server started on address http://localhost:${PORT}`)
 })
