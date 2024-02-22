@@ -11,10 +11,10 @@ class ReadingsController {
                 res.status(404).json({message: "User not found or invalid arguments!"})
                 return;
             }
-            const AllReadings = db.query(
-                `SELECT * FROM показания
-                LEFT JOIN точки_учета ON показания.id_точки_учета = точки_учета.id
-                LEFT JOIN общая_информация ON показания.users_id = общая_информация.id WHERE показания.users_id = $1;`,[id])
+            const AllReadings = await db.query(
+                `SELECT * FROM точки_учета
+                LEFT JOIN показания ON точки_учета.id = показания.id_точки_учета
+                WHERE точки_учета.users_id = $1 ORDER BY показания.дата_показания LIMIT 50 OFFSET $2;`,[id, req.params.elementsOffset])
             AllReadings.rows.length !== 0 ?
                 res.status(200).json(AllReadings.rows) :
                 res.status(404).json({message: "Not Found!"})

@@ -28,7 +28,7 @@ class ContractsController {
                 res.status(404).json({message: "User not found or invalid arguments!"})
                 return;
             }
-            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE user_id = $1;`,[id])
+            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[req.params.contract_id])
             AllUserContractsCards.rows.length !== 0 ?
                 res.status(200).json(AllUserContractsCards.rows) :
                 res.status(404).json({message: "You have no contracts!"})
