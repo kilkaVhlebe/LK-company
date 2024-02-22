@@ -118,13 +118,13 @@ CREATE TABLE карточка_договора
     Начало_договора     DATE,
     Окончание_договора  DATE,
     Дата_подписания     DATE,
-    Дата_расторжения    DATE,
+    Дата_расторжения    DATE
 );
 
 /*Карточка договора/ точки учета*/
 CREATE TABLE точки_учета
 (
-    id INTEGER SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     номер_договора INTEGER,
     users_id INTEGER,
     наименование VARCHAR(255),
@@ -136,14 +136,14 @@ CREATE TABLE точки_учета
     коэффициент_трансформации NUMERIC(3),
     действует_с DATE,
     действует_до DATE,
-    ценовая_категория VARCHAR(255)
+    ценовая_категория VARCHAR(255),
     FOREIGN KEY (номер_договора) REFERENCES договоры(id),
     FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
 CREATE TABLE параметры_ТУ
 (
- id INTEGER SERIAL PRIMARY KEY,
+ id SERIAL PRIMARY KEY,
  id_точки_учета INTEGER,
  наименование VARCHAR(255),
  значение VARCHAR(255),
@@ -161,9 +161,9 @@ users_id INTEGER,
 марка_прибора_учета VARCHAR(255),
 заводской_номер INTEGER,
 услуга VARCHAR(255),
-Тариф/Зоны INTEGER,
+Тариф_Зоны INTEGER,
 Расход INTEGER,
 дата_показания DATE,
-FOREIGN KEY (id_точки_учета) REFERENCES точки_учета(id)
+FOREIGN KEY (id_точки_учета) REFERENCES точки_учета(id),
 FOREIGN KEY (users_id) REFERENCES users(id)
 );
