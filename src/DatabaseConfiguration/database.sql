@@ -126,16 +126,19 @@ CREATE TABLE точки_учета
 (
     id INTEGER SERIAL PRIMARY KEY,
     номер_договора INTEGER,
+    users_id INTEGER,
     наименование VARCHAR(255),
     адрес VARCHAR(255),
     тип VARCHAR(255),
     заводской_номер_ПУ INTEGER,
     число_тарифов INTEGER,
+    тарифность INTEGER,
     коэффициент_трансформации NUMERIC(3),
     действует_с DATE,
     действует_до DATE,
     ценовая_категория VARCHAR(255)
-    FOREIGN KEY (номер_договора) REFERENCES договоры(id)
+    FOREIGN KEY (номер_договора) REFERENCES договоры(id),
+    FOREIGN KEY (users_id) REFERENCES users(id)
 );
 
 CREATE TABLE параметры_ТУ
@@ -150,4 +153,17 @@ CREATE TABLE параметры_ТУ
 );
 
 /*Вывод показаний*/
-CREATE TABLE ();
+CREATE TABLE показания
+(
+id SERIAL PRIMARY KEY,
+id_точки_учета INTEGER,
+users_id INTEGER,
+марка_прибора_учета VARCHAR(255),
+заводской_номер INTEGER,
+услуга VARCHAR(255),
+Тариф/Зоны INTEGER,
+Расход INTEGER,
+дата_показания DATE,
+FOREIGN KEY (id_точки_учета) REFERENCES точки_учета(id)
+FOREIGN KEY (users_id) REFERENCES users(id)
+);

@@ -6,12 +6,12 @@ class MeteringPointsController {
 
     async GetAllPoints(req, res) {
         try {
-            const{id, login, password} = req.body
+            const{id, login, password} = req.params
             if (!await UserChecker(id, login, password)) {
                 res.status(404).json({message: "User not found or invalid arguments!"})
                 return;
             }
-            const Points = await db.query(`SELECT * FROM  точки_учета WHERE номер_договора = $1;`,[req.body.contract_id])
+            const Points = await db.query(`SELECT * FROM  точки_учета WHERE номер_договора = $1;`,[req.params.contract_id])
             Points.rows.length !== 0 ? res.stat(200).json(Points.rows) : res.status(404).json({message: "Not Found!"})
         } catch (error) {
             res.status(500).json({message:"Internal server error!"})
@@ -36,12 +36,12 @@ class MeteringPointsController {
 
     async GetPointParameters(req,res) {
         try {
-            const{id, login, password} = req.body
+            const{id, login, password} = req.params
             if (!await UserChecker(id, login, password)) {
                 res.status(404).json({message: "User not found or invalid arguments!"})
                 return;
             }
-            const PointParameters = await db.query(`SELECT * FROM  параметры_ТУ WHERE id_точки_учета = $1;`,[req.body.point_id])
+            const PointParameters = await db.query(`SELECT * FROM  параметры_ТУ WHERE id_точки_учета = $1;`,[req.params.point_id])
             PointParameters.rows.length !== 0 ? res.stat(200).json(PointParameters.rows) : res.status(404).json({message: "Not Found!"})
         } catch (error) {
             res.status(500).json({message:"Internal server error!"})

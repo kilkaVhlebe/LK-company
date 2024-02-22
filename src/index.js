@@ -13,6 +13,9 @@ const contractRouter = require('./routes/договоры.routes')
 app.use('/', contractRouter)
 const meteringPointsRouter = require('./routes/точки_учета.routes')
 app.use('/', meteringPointsRouter)
+const readingsRouter = require('./routes/показания.routes')
+app.use('/',readingsRouter)
+
 app.listen(PORT, () =>{
     console.log(`Server started on address http://localhost:${PORT}`)
 })
