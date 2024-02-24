@@ -6,12 +6,8 @@ class ContractsController {
 
     async GetContract(req, res){
         try{
-            const{id, login, password} = req.params
-            if (!await UserChecker(id, login, password)) {
-                res.status(404).json({message: "User not found or invalid arguments!"})
-                return;
-            }
-            const AllUserContracts = await db.query(`SELECT * FROM договоры WHERE users_id = $1;`,[id])
+            const{user_id} = req.params
+            const AllUserContracts = await db.query(`SELECT * FROM договоры WHERE users_id = $1;`,[user_id])
             AllUserContracts.rows.length !== 0 ?
                 res.status(200).json(AllUserContracts.rows) :
                 res.status(404).json({message: "You have no contracts!"})
@@ -23,12 +19,8 @@ class ContractsController {
 
     async GetContractCard(req, res){
         try{
-            const{id, login, password} = req.params
-            if (!await UserChecker(id, login, password)) {
-                res.status(404).json({message: "User not found or invalid arguments!"})
-                return;
-            }
-            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[req.params.contract_id])
+            const{contract_id} = req.params
+            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[contract_id])
             AllUserContractsCards.rows.length !== 0 ?
                 res.status(200).json(AllUserContractsCards.rows) :
                 res.status(404).json({message: "You have no contracts!"})
@@ -40,11 +32,7 @@ class ContractsController {
 
     async GetOrganisationCard(req,res){
         try{
-            const{id, login, password} = req.params
-            if (!await UserChecker(id, login, password)) {
-                res.status(404).json({message: "User not found or invalid arguments!"})
-                return;
-            }
+            const{id} = req.params
             const OrganisationInfo = await db.query(`SELECT *
                 FROM общая_информация
                 LEFT JOIN реквизиты_компании ON общая_информация.id = реквизиты_компании.id
