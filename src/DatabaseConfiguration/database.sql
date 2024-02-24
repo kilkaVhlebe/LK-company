@@ -4,11 +4,10 @@ CREATE TABLE users
 (
     id          SERIAL PRIMARY KEY,
     login       VARCHAR(50)  NOT NULL,
-    password    VARCHAR(100) NOT NULL,
-    avatar      TEXT
+    password    VARCHAR(100) NOT NULL
 );
 
-INSERT INTO users (login, password, avatar) VALUES ('first_user', 1234, '0'); /* Написать скрипт для создания пользователей*/
+INSERT INTO users (login, password, avatar) VALUES ('first_user', 1234);
 
 
 /*Карточка организации*/

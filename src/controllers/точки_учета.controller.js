@@ -1,5 +1,4 @@
 const db = require('../DatabaseConfiguration/db')
-const {UserChecker} = require('../User.Checker')
 
 
 class MeteringPointsController {
