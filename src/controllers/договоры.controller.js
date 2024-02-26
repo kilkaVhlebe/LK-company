@@ -5,8 +5,8 @@ class ContractsController {
 
     async GetContract(req, res){
         try{
-            const{user_id} = req.params
-            const AllUserContracts = await db.query(`SELECT * FROM договоры WHERE users_id = $1;`,[user_id])
+            const{userId} = req.params
+            const AllUserContracts = await db.query(`SELECT * FROM договоры WHERE users_id = $1;`,[userId])
             AllUserContracts.rows.length !== 0 ?
                 res.status(200).json(AllUserContracts.rows) :
                 res.status(404).json({message: "You have no contracts!"})
@@ -18,8 +18,8 @@ class ContractsController {
 
     async GetContractCard(req, res){
         try{
-            const{contract_id} = req.params
-            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[contract_id])
+            const{contractId} = req.params
+            const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[contractId])
             AllUserContractsCards.rows.length !== 0 ?
                 res.status(200).json(AllUserContractsCards.rows) :
                 res.status(404).json({message: "You have no contracts!"})

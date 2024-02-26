@@ -7,7 +7,7 @@ CREATE TABLE users
     password    VARCHAR(100) NOT NULL
 );
 
-INSERT INTO users (login, password, avatar) VALUES ('first_user', 1234);
+INSERT INTO users (login, password) VALUES ('first_user', 1234);
 
 
 /*Карточка организации*/
@@ -169,11 +169,11 @@ id_точки_учета INTEGER,
 марка_прибора_учета VARCHAR(255),
 заводской_номер INTEGER,
 услуга VARCHAR(255),
-Тариф_Зоны INTEGER,
+Тариф_Зоны VARCHAR(255),
 Расход INTEGER,
 дата_показания DATE,
 FOREIGN KEY (id_точки_учета) REFERENCES точки_учета(id)
 );
 
 INSERT INTO показания (id_точки_учета, марка_прибора_учета, заводской_номер, услуга, Тариф_Зоны, Расход, дата_показания)
-VALUES (1, 'СЭ 67п78 9ап 786па9', 123490, 'Электроснабжение', 1, 10000, '2024-1-30');
+VALUES (1, 'СЭ 67п78 9ап 786па9', 123490, 'Электроснабжение', '1', 10000, '2024-1-30');
