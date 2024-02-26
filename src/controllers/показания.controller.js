@@ -5,15 +5,14 @@ class ReadingsController {
 
     async GetAllReadings(req, res) {
         try {
-            const{userId,contractId, elementsOffset} = req.params
+            const{userId,contractId} = req.params
             const readings = await db.query(`
                 SELECT * 
                 FROM точки_учета AS t
                 JOIN показания AS p ON t.id = p.id_точки_учета
                 WHERE t.users_id = $1 AND t.номер_договора = $2
-                ORDER BY p.дата_показания 
-                LIMIT 50 OFFSET $3;
-            `, [userId, contractId, elementsOffset]);
+                ORDER BY p.дата_показания DESC;
+            `, [userId, contractId]);
             readings.rows.length !== 0 ?
                 res.status(200).json(readings.rows) :
                 res.status(404).json({message: "Not Found!"})
