@@ -1,0 +1,217 @@
+---
+  openapi: "3.0.0"
+  info: 
+    description: "Данный сервис определяет основные пользовательские функции"
+    title: "Личный кабинет ЛК Энергосбыт"
+    version: "1.0.0"
+    contact: 
+      email: "artempoznakov990@gmail.com"
+  paths: 
+    /user/login/:login/:password: 
+      get: 
+        parameters: 
+          - 
+            name: "login"
+            in: "get"
+            description: "пользоваетельский логин"
+            required: false
+            schema: 
+              type: "string"
+          - 
+            name: "password"
+            in: "get"
+            description: "пользоваетельский пароль"
+            required: false
+            schema: 
+              type: "string"
+        description: "Метод авторизации пользователя"
+        tags: 
+          - "Пользователи"
+        responses: 
+          200: 
+            description: "Вернет пользовательский id"
+          404: 
+            description: "ресурс не найден"
+    /contract/get/:userId: 
+      get: 
+        parameters: 
+          - 
+            name: "userId"
+            in: "get"
+            description: ", пользоваетельский id"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение списка договоров которые привязаны к пользователю/организации"
+        tags: 
+          - "Договоры"
+        responses: 
+          200: 
+            description: "Вернет список всех договоров организации"
+          404: 
+            description: "ресурс не найден"
+    /contract/get/contract_card/:contractId: 
+      get: 
+        parameters: 
+          - 
+            name: "contractId"
+            in: "get"
+            description: ", id договора"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение каротчки выбранного договора"
+        tags: 
+          - "Договоры"
+        responses: 
+          200: 
+            description: "Вернет карточку выбранного договора"
+          404: 
+            description: "ресурс не найден"
+    /contract/get/organisation_card/:id: 
+      get: 
+        parameters: 
+          - 
+            name: "id"
+            in: "get"
+            description: ", пользоваетельский id"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение карточки организации"
+        tags: 
+          - "Договоры"
+        responses: 
+          200: 
+            description: "Вернет карточку организации(в БД организация приравнивается к пользователю)"
+          404: 
+            description: "ресурс не найден"
+    /reading/get/readings/:userId/:contractId: 
+      get: 
+        parameters: 
+          - 
+            name: "userId"
+            in: "get"
+            description: ", пользоваетельский id"
+            required: false
+            schema: 
+              type: "integer"
+          - 
+            name: "contractId"
+            in: "get"
+            description: ", id выбранного договора"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение списка показаний по точкам учета привязанных к выбранному договору"
+        tags: 
+          - "Показания"
+        responses: 
+          200: 
+            description: "Вернет список показаний"
+          404: 
+            description: "ресурс не найден"
+    /reading/reading_value: 
+      put: 
+        parameters: 
+          - 
+            name: "readingId"
+            in: "get"
+            description: ", id показания"
+            required: false
+            schema: 
+              type: "integer"
+          - 
+            name: "readingValue"
+            in: "get"
+            description: ", Значение расхода введенное пользоваетелем"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение значения расхода и обновление показания."
+        tags: 
+          - "Показания"
+        responses: 
+          200: 
+            description: "Вернет значение readingValue как \"Расход\""
+          404: 
+            description: "ресурс не найден"
+    /metering-points/get/all_points/:contractId: 
+      get: 
+        parameters: 
+          - 
+            name: "contractId"
+            in: "get"
+            description: "id договора"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение всех точек учета привязаных к выбранному договору"
+        tags: 
+          - "Точки учета"
+        responses: 
+          200: 
+            description: "Вернет список всех точек учета привязаных к выбронному договору"
+          404: 
+            description: "ресурс не найден"
+    /metering-points/get/point/:contractId/:pointId: 
+      get: 
+        parameters: 
+          - 
+            name: "contractId"
+            in: "get"
+            description: "id договора"
+            required: false
+            schema: 
+              type: "integer"
+          - 
+            name: "pointId"
+            in: "get"
+            description: "id точки учета"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение конкретной точки учета"
+        tags: 
+          - "Точки учета"
+        responses: 
+          200: 
+            description: "Вернет конкретную точку учета"
+          404: 
+            description: "ресурс не найден"
+    /metering-points/get/point_parameters/:pointId: 
+      get: 
+        parameters: 
+          - 
+            name: "pointId"
+            in: "get"
+            description: "id точки учета"
+            required: false
+            schema: 
+              type: "integer"
+        description: "Получение параметров конкретной точки учета"
+        tags: 
+          - "Точки учета"
+        responses: 
+          200: 
+            description: "Вернет параметры по конкретной точке учета и всю информацию о ней"
+          404: 
+            description: "ресурс не найден"
+  tags: 
+    - 
+      name: "Пользователи"
+      description: "функционал авторизации пользователей"
+    - 
+      name: "Договоры"
+      description: "функционал получения инфориации о договорах и организации которой они принадлежат"
+    - 
+      name: "Показания"
+      description: "функции для получения и внесения показаний"
+    - 
+      name: "Точки учета"
+      description: "функционал получения инфориации о точках учета"
+  servers: 
+    - 
+      url: "http://localhost:3000"
+    - 
+      url: "https://localhost:3000"

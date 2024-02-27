@@ -1,13 +1,18 @@
 const express = require('express')
 const dotenv = require('dotenv/config')
-
+const path = require('path')
+const swaggerUi = require("swagger-ui-express");
+const YAML = require('yamljs')
 
 const PORT = process.env.PORT || 4200
 const app = express()
 
+const swaggerDocument = YAML.load(path.join(__dirname, '../docs', 'docs.yaml'));
+
 
 app.use(express.json());
 
+app.use('/api', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 const userRouter = require('./routes/user.routes');
 app.use('/', userRouter)
 const contractRouter = require('./routes/договоры.routes')

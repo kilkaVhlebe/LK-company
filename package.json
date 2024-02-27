@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "generate:docs": "node src/generate-doc.js"
   },
   "keywords": [],
   "author": "",
@@ -15,8 +16,15 @@
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
     "express": "^4.18.2",
+    "express-swagger-generator": "^1.1.17",
+    "json2yaml": "^1.1.0",
     "jsonwebtoken": "^9.0.2",
     "nodemon": "^3.0.2",
-    "pg": "^8.11.3"
+    "path": "^0.12.7",
+    "pg": "^8.11.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "swagger2openapi": "^7.0.8",
+    "yamljs": "^0.3.0"
   }
 }
