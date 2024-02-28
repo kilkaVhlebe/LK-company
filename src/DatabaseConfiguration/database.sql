@@ -92,6 +92,8 @@ CREATE TABLE договоры
     расчетчик_телефона  VARCHAR(256),
     договорник_ФИО      TEXT,
     договорник_телефон  VARCHAR(256),
+    ИНН_договоргиника INTEGER,
+    КПП_договорника INTEGER,
     оплачен             BOOLEAN,
     users_id INTEGER,
     FOREIGN KEY (users_id) REFERENCES users(id)
