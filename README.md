@@ -1,5 +1,5 @@
 # Сервер сайд для личного кабинета ЛК Энегргосбыт
-## Установка для разработки
+## Установка и сборка для разработки
 Клонируем репозиторий
 ```
 git clone https://github.com/tugaserya/LK-company.git
@@ -9,6 +9,19 @@ cd LK-company
 ```
 npm i
 ```
+
+Создайте в корне проекта файл `.env`. Добавте в него и заполните поля:
+```
+PORT
+POSTGRES_HOST
+POSTGRES_USER
+POSTGRES_DB
+POSTGRES_PASSWORD
+POSTGRES_PORT
+```
+
+Создайте базу данных по скриптам из файла database.sql
+
 ## Запуск
 Для разработки
 ```
