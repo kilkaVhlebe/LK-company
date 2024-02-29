@@ -20,8 +20,9 @@ class ContractsController {
         try{
             const{contractId} = req.params
             const AllUserContractsCards = await db.query(`SELECT * FROM карточка_договора WHERE номер_договора = $1;`,[contractId])
-            AllUserContractsCards.rows.length !== 0 ?
-                res.status(200).json(AllUserContractsCards.rows[0]) :
+            const AllPoints = await db.query(`SELECT * FROM точки_учета WHERE номер_договора = $1;`,[contractId])
+            AllUserContractsCards.rows && AllPoints.rows ?
+                res.status(200).json({contractCard: AllUserContractsCards.rows[0], points: AllPoints.rows}) :
                 res.status(404).json({message: "You have no contracts!"})
         }catch (error){
             res.status(500).json({message:"Internal server error!"})
