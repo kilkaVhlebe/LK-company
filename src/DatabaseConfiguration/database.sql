@@ -84,7 +84,6 @@ VALUES (1, 'Иванов Иван Иванович', 'Директор', 'Юри
 CREATE TABLE договоры
 (
     id SERIAL PRIMARY KEY,
-    номер               INTEGER,
     тема                VARCHAR(50),
     дата_начала         DATE,
     дата_окончания      DATE,
