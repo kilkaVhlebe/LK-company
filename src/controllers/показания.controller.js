@@ -22,7 +22,6 @@ class ReadingsController {
                         return { ...row, предидущая_дата_показания: previousRow.дата_показания, предидущий_Расход: previousRow.Расход };
                     }
                 });
-
                 res.status(200).json(modifiedRows);
             } else {
                 res.status(404).json({ message: "Not Found!" });
