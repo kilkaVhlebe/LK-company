@@ -13,9 +13,20 @@ class ReadingsController {
                 WHERE t.users_id = $1 AND t.номер_договора = $2
                 ORDER BY p.дата_показания DESC;
             `, [userId, contractId]);
-            readings.rows.length !== 0 ?
-                res.status(200).json(readings.rows) :
-                res.status(404).json({message: "Not Found!"})
+            if (readings.rows.length !== 0) {
+                const modifiedRows = readings.rows.map((row, index) => {
+                    if (index === readings.rows.length - 1) {
+                        return { ...row, дата_показания: null, Расход: 0 };
+                    } else {
+                        const previousRow = readings.rows[index + 1];
+                        return { ...row, предидущая_дата_показания: previousRow.дата_показания, предидущий_Расход: previousRow.Расход };
+                    }
+                });
+
+                res.status(200).json(modifiedRows);
+            } else {
+                res.status(404).json({ message: "Not Found!" });
+            }
         } catch (error) {
             res.status(500).json({message:"Internal server error!"})
             console.error("Get all readings error: " + error)
