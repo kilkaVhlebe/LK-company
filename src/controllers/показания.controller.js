@@ -16,10 +16,10 @@ class ReadingsController {
             if (readings.rows.length !== 0) {
                 const modifiedRows = readings.rows.map((row, index) => {
                     if (index === readings.rows.length - 1) {
-                        return { ...row, дата_показания: null, Расход: 0 };
+                        return { ...row, предыдущая_дата_показания: null, предыдущий_Расход: 0};
                     } else {
                         const previousRow = readings.rows[index + 1];
-                        return { ...row, предидущая_дата_показания: previousRow.дата_показания, предидущий_Расход: previousRow.Расход };
+                        return { ...row, предыдущая_дата_показания: previousRow.дата_показания, предыдущий_Расход: previousRow.Расход };
                     }
                 });
                 res.status(200).json(modifiedRows);
